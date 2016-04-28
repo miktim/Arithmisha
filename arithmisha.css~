@@ -1,0 +1,91 @@
+body {
+	background-color: white;
+	margin: 0;}
+td {text-align: left;}
+td.unfocusedField {
+	color: white;
+	text-align: center;
+	font-size: 20px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: white;
+}
+.inField {
+	color: black;
+	text-align: center;
+	font-size: 20px;
+	background-color: white;
+	border-width: 1px;
+	border-style: solid;
+	border-color: black;
+}
+img {border-width: 0}
+area {border-width: 0}
+var {font-style: normal;}
+.keyButton {
+	width: 50px;
+	height: 50px;
+}
+.keyButtonWide {
+	width: 100px;
+	height: 50px;
+}
+.rotate3deg {
+	-webkit-transform: rotate(3deg);
+	-moz-transform: rotate(3deg);
+	-o-transform: rotate(3deg);
+	-ms-transform: rotate(3deg);
+	transform: rotate(3deg);
+}
+.layer1, .layer2, .layer3, .layer4, .layer5, .layer9, .layer10 {
+	position: absolute;
+	width: 1024px; 
+	top: 0;
+	font-family:sans-serif;
+	color: white;
+	text-align: center;
+} 
+.layer1 { z-index: 1; } 
+.layer2 { z-index: 2; }
+.layer3 { z-index: 3; }
+.layer4 { z-index: 4; }
+.layer5 { z-index: 5; }
+.layer9 { z-index: 9; }
+.layer10{ z-index: 10;} 
+/* http://stackoverflow.com/revisions/16344389/7 */
+.blink {
+    -webkit-animation-name: blinker;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+
+    -moz-animation-name: blinker;
+    -moz-animation-duration: 1s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+
+    animation-name: blinker;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@-moz-keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+@-webkit-keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+@keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+
