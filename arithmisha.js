@@ -13,7 +13,7 @@ Arithmisha
 			}
 		, restore: function() {
 				var settingsStr = getCookie("Settings");
-				if (settingsStr === undefined) settingsStr = toString(3+16+256) + "$1$9";
+				if (settingsStr === undefined) settingsStr = (3+16+256).toString() + "$1$9";
 				var settingsArr = settingsStr.split("$");
 				this.bitmask = Number(settingsArr[0]);
 // for each checkbox class assign 
@@ -128,7 +128,7 @@ function postLoadInit() {
 		var checkGrp = document.getElementsByClassName(checkClassNames[j]);
 		for (var i=0; i < checkGrp.length; i++) {
 // assign onclick handler
-			checkGrp[i].onclick = function(event) { return onCheckClick(event); }
+			checkGrp[i].onclick = function(event) { return checkClickHandle(event); }
 		} 
 	}
 // for keyboard assign onclick handler
@@ -136,12 +136,14 @@ function postLoadInit() {
 	for (var j=0; j < keyClassNames.length; j++) {
 		var keyGrp = document.getElementsByClassName(keyClassNames[j]);
 		for (var i=0; i < keyGrp.length; i++) {
-			keyGrp[i].onclick = function(event) {onKeyClick(event);};
+			keyGrp[i].onclick = function(event) {keyClickHandle(event);};
 		}
 	}
+	var keypressReciever = document.getElementsByTagName("body")[0];// document.getElementById("divKeyboard");
+	keypressReciever.onkeypress = function(event) {keyPressHandle(event);}
 };
 // CheckBoxes onclick handler
-function onCheckClick(event) {
+function checkClickHandle(event) {
 	var el = event.currentTarget;
 // target state already changed
 	if (!el.checked) {
@@ -158,8 +160,8 @@ function onCheckClick(event) {
 	settings.save();
 	return true;
 }
-// Keyboard button click
-function onKeyClick(event) {
+// virtual keyboard button click handler
+function keyClickHandle(event) {
 	if (inValue.element === undefined) return;
 	var key = event.currentTarget.value;
 	var inLen = inValue.element.innerHTML.length;
@@ -175,6 +177,21 @@ function onKeyClick(event) {
    if (inValue.chars.search(key) < 0) return;
    inValue.element.innerHTML += key;
 	return;
+}
+// https://learn.javascript.ru/keyboard-events
+// event.type должен быть keypress
+function keyPressHandle(event) {
+  if (event.which == null) { // IE
+    if (event.keyCode < 32) return null; // спец. символ
+    return String.fromCharCode(event.keyCode)
+  }
+
+  if (event.which != 0 && event.charCode != 0) { // все кроме IE
+    if (event.which < 32) return null; // спец. символ
+    return String.fromCharCode(event.which); // остальные
+  }
+
+  return null; // спец. символ
 }
 //
 function showTask(){
@@ -224,7 +241,7 @@ function generateTask() {
 		var opIdx = selectedArr[0][randInt(0,selectedArr[0].length-1)];
 		// select find to index
 		var findTo = selectedArr[2][randInt(0,selectedArr[2].length-1)];
-		// avoid ambiguity: 2 ? 2 = 4, 1 ? 1 = 1
+		// avoid ambiguity: 2 ? 2 = 4, x ? 1 = 1
 		if (findTo==1 && opd1==opd2) { //find to arithmetic operation
 			if ((opd1==1 && (opIdx==2 || opIdx==3)) || (opd1==2 && (opIdx==0 || opIdx==2)))
 				opd1 = randInt(3,9);
@@ -256,6 +273,7 @@ function generateTask() {
 		return exArr[0] + " " + exArr[1] + " " + exArr[2] + " " + exArr[3] + " " + exArr[4] + " " 
 			+ rightAnswer + " "+ findTo ; 
 	}
+//
 	function maskToArr(opIdxArr,orderArr,findIdxArr) {
 		var optBits = settings.bitmask;
 		var selectedOps = new Array();
