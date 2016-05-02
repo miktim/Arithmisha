@@ -241,7 +241,7 @@ function generateTask() {
 		var opIdx = selectedArr[0][randInt(0,selectedArr[0].length-1)];
 		// select find to index
 		var findTo = selectedArr[2][randInt(0,selectedArr[2].length-1)];
-		// avoid ambiguity: 2 ? 2 = 4, 1 ? 1 = 1
+		// avoid ambiguity: 2 ? 2 = 4, x ? 1 = 1
 		if (findTo==1 && opd1==opd2) { //find to arithmetic operation
 			if ((opd1==1 && (opIdx==2 || opIdx==3)) || (opd1==2 && (opIdx==0 || opIdx==2)))
 				opd1 = randInt(3,9);
@@ -273,6 +273,7 @@ function generateTask() {
 		return exArr[0] + " " + exArr[1] + " " + exArr[2] + " " + exArr[3] + " " + exArr[4] + " " 
 			+ rightAnswer + " "+ findTo ; 
 	}
+//
 	function maskToArr(opIdxArr,orderArr,findIdxArr) {
 		var optBits = settings.bitmask;
 		var selectedOps = new Array();
