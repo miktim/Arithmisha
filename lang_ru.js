@@ -27,8 +27,8 @@ document.getElementById("helpText").innerHTML =
 	"Кликни Марьванну для настройки.<br>" +
 	"Кликни Мишу для просмотра дневника.<br>" +
 	"Кликни класс для справки.";
-document.getElementById("keyMul").innerHTML = "x";
-document.getElementById("keyDiv").innerHTML = ":";
+//document.getElementById("keyMul").innerHTML = "x";
+//document.getElementById("keyDiv").innerHTML = ":";
 //
 eExcellent="Отлично, Миша!";
 eGood="Хорошо, Миша.";
