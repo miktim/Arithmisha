@@ -154,7 +154,10 @@ function checkClickHandle(event) {
 			if (el !== elClassGrp[i] && elClassGrp[i].checked) checkedCnt++;
 		};
 // all unchecked? - cancel change					
-		if (checkedCnt == 0) return false; 
+		if (checkedCnt == 0) {
+			el.checked = true; 
+			return false;
+		} 
 	}
 	settings.bitmask = settings.bitmask ^ el.value;
 	settings.save();
