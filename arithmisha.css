@@ -43,9 +43,10 @@ button {
 	height: 50px;
 	line-height: 40px;
 	text-align: center;
-	font-size: 18px;
-	border-radius: 10px;
-/*	color: gray;
+	border-width: 1px;
+	border-radius: 8px;
+/*	font-size: 18px;
+	color: gray;
 	background-color: black;*/
 }
 button.keyButton {
@@ -53,8 +54,8 @@ button.keyButton {
 }
 button.keyButtonWide {
 	width: 75px;
-/*	font-family: arial,sans-serif;*/
-	font-weight: bold;
+/*	font-family: arial,sans-serif;
+	font-weight: bold;*/
 }
 .rotate3deg {
 	-webkit-transform: rotate(3deg);
