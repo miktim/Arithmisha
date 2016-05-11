@@ -25,13 +25,18 @@ var {font-style: normal;}
 button.keyButton {
 	width: 50px;
 	height: 50px;
-	vertical-align: middle;
-/*	font-weight: bold; */
+	line-height: 40px;
+	text-align: center;
+	font-size: 18px;
 }
 button.keyButtonWide {
-	width: 100px;
+	width: 75px;
 	height: 50px;
-	vertical-align: middle;
+	line-height: 40px;
+	text-align: center;
+	font-family: arial,sans-serif;
+	font-size: 18px;
+	font-weight: bold;
 }
 .rotate3deg {
 	-webkit-transform: rotate(3deg);
