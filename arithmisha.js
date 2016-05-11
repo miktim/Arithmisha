@@ -2,7 +2,7 @@
 Arithmisha
 (c) miktim@mail.ru
 	2016 released as WEB App
-	2002 idea & characters & Windows App
+	2002 idea, characters, Windows App
 */	
 	var settings =
 		{ bitmask:3+16+256 // operations:addition & subtraction; order of magnitude: ones; find: result 
@@ -75,7 +75,7 @@ function postLoadInit() {
 	document.getElementById("keyDiv").value = document.getElementById("keyDiv").innerHTML;
 	document.getElementById("areaTeacher").onclick =
 	function() {
-		document.getElementById("divKeyboard").style.visibility = "hidden";
+		document.getElementById("divKeyboard").style.visibility = "visible";
 		document.getElementById("divTask").style.visibility = "hidden";
 		document.getElementById("divHelp").style.visibility = "hidden";
 		document.getElementById("divAbout").style.visibility = "hidden";
@@ -170,20 +170,20 @@ function keyClickHandle(event) {
 	var inLen = inValue.element.innerHTML.length;
 	if (key == "B" && inLen > 0) {
 		inValue.element.innerHTML=inValue.element.innerHTML.substr(0, inLen-1);
-		return;
+		return null;
    }
    if (key == "E" && inLen > 0) {
    	inValue.onchange();
-   	return;
+   	return null;
    }
    if (inLen >= inValue.maxLen) return;
-   if (inValue.chars.search(key) < 0) return;
+   if (inValue.chars.search(key) < 0) return null;
    inValue.element.innerHTML += key;
-	return;
+	return null;
 }
 // https://learn.javascript.ru/keyboard-events
 // event.type должен быть keypress
-function keyPressHandle(event) {
+/*function keyPressHandle(event) {
   if (event.which == null) { // IE
     if (event.keyCode < 32) return null; // спец. символ
     return String.fromCharCode(event.keyCode)
@@ -195,6 +195,16 @@ function keyPressHandle(event) {
   }
 
   return null; // спец. символ
+}*/
+function keyPressHandle(event) {
+  var key = event.keyCode;
+  if (key == 8) { key = 66;} //backspace = B
+  if (key == 13){ key = 69;} //enter = E
+  var charVal = String.fromCharCode(key);      
+  var enabledKeys = "1234567890/*-+<>=,.EB";
+  if (enabledKeys.search(charVal) < 0) return false;
+  alert(charVal);
+  return false; // спец. символ
 }
 //
 function showTask(){
@@ -321,17 +331,21 @@ function fillTask() {
 	trLst = appendList(trLst, tmpLst[0].getElementsByTagName("tr")); 
 	trLst = appendList(trLst, tmpLst[1].getElementsByTagName("tr"));
 //
+	var firstQuestion = true;
 	for (var i=0; i < taskLst.length; i++) {
 		var exArr = taskLst[i].split(" ");
 		var tdLst = trLst[i].getElementsByTagName("td");
 		for (var j=0; j<tdLst.length; j++){
 			tdLst[j].innerHTML = exArr[j];
-			tdLst[j].style.textAlign = "center";
 			if (exArr[j] == "?") {
-//				tdList[j].style = document.getElementsByTagName("td.focusedField")[0];
-				tdLst[j].style.color="yellow";
+				if (firstQuestion) { 
+					tdLst[j].className = "inField";
+					firstQuestion = false;
+				} else {
+					tdLst[j].className="exQuestion";
+				}
 			} else {
-				tdLst[j].style.color="white";
+				tdLst[j].className="exNormal";
 			}
 		}
 	}	

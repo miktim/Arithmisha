@@ -2,7 +2,7 @@ body {
 	background-color: white;
 	margin: 0;}
 td {text-align: left;}
-td.unfocusedField {
+.unfocusedField {
 	color: white;
 	text-align: center;
 	font-size: 20px;
@@ -19,23 +19,41 @@ td.unfocusedField {
 	border-style: solid;
 	border-color: black;
 }
+.exNormal {
+	text-align: center;
+	color: white;
+}
+.exQuestion {
+	text-align: center;
+	color: yellow;
+}
+.exWrongAnswer {
+	text-align: center;
+	color: red;
+	text-decoration: line-through;
+}
+.exRightAnswer {
+	text-align: center;
+	color: lightgreen;
+}
 img {border-width: 0}
 area {border-width: 0}
 var {font-style: normal;}
-button.keyButton {
-	width: 50px;
+button {
 	height: 50px;
 	line-height: 40px;
 	text-align: center;
 	font-size: 18px;
+	border-radius: 10px;
+/*	color: gray;
+	background-color: black;*/
+}
+button.keyButton {
+	width: 50px;
 }
 button.keyButtonWide {
 	width: 75px;
-	height: 50px;
-	line-height: 40px;
-	text-align: center;
-	font-family: arial,sans-serif;
-	font-size: 18px;
+/*	font-family: arial,sans-serif;*/
 	font-weight: bold;
 }
 .rotate3deg {
