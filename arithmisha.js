@@ -30,22 +30,22 @@ Arithmisha
 				this.setMax2nd(Number(settingsArr[2])); 
 			}
 		, setMin2nd: function(num) {
-				this.min2nd = num;
+				settings.min2nd = num;
 				document.getElementById("minOpd2nd").innerHTML = num;
 			}
 		, setMax2nd: function(num) {
-				this.max2nd = num;
+				settings.max2nd = num;
 				document.getElementById("maxOpd2nd").innerHTML = num; 
 			}			
 		, update2ndValues: function() {
-				var min2nd = Number(document.getElementById("minOpd2nd").innerHTML); 
-				var max2nd = Number(document.getElementById("maxOpd2nd").innerHTML);
-				if (min2nd == 0) min2nd = 1; 
-				if (max2nd == 0) max2nd = 9;
-				if (min2nd > max2nd) max2nd = min2nd;
-				this.setMin2nd(min2nd);
-				this.setMax2nd(max2nd);	
-				this.save();
+				var min2 = Number(document.getElementById("minOpd2nd").innerHTML); 
+				var max2 = Number(document.getElementById("maxOpd2nd").innerHTML);
+				if (min2 == 0) min2 = 1; 
+				if (max2 == 0) max2 = 9;
+				if (min2 > max2) max2 = min2;
+				settings.setMin2nd(min2);
+				settings.setMax2nd(max2);	
+				settings.save();
 			}
 		}
 	
@@ -55,13 +55,36 @@ Arithmisha
 		, examples: new Array()
 		};
 	var taskStarted = 0;
+	var taskExIndex = -1;
 	var dayBook
 		{ tasks: new Array() } ;
-	var inValue =
+	var currentField =
 		{ element: undefined
 		, maxLen: 0
 		, chars: ""
-		, onchange: function() {}
+		, onChange: function() {}
+		, set: function(element, len, chars, handle) {
+			this.element = element;
+			this.maxLen = len;
+			this.chars = chars;
+			this.onChange = handle;
+		  }
+		, reset: function() { this.element = undefined; }
+		, inKey: function(key) {
+	      if (this.element === undefined) return;
+	      var inLen = this.element.innerHTML.length;
+	      if (key == "B" && inLen > 0) {
+		      this.element.innerHTML=this.element.innerHTML.substr(0, inLen-1);
+		      return;
+         }
+         if (key == "E" && inLen > 0 && typeof this.onChange === "function") {
+   	      this.onChange();
+   	      return;
+         }
+         if (inLen >= this.maxLen) return;
+         if (this.chars.search(key) < 0) return ;
+         this.element.innerHTML += key;
+		  }
 		};
 // estimate results		
 	var eExcellent="Excellent, Misha!";
@@ -83,8 +106,11 @@ function postLoadInit() {
 		var settingsEl = document.getElementById("divSettings");
 		if (settingsEl.style.visibility == "visible") {
 			settingsEl.style.visibility = "hidden";
+			currentField.reset();
 		} else { 
 			settingsEl.style.visibility = "visible";
+ 	      currentField.set(document.getElementById("minOpd2nd")
+			  ,2,"1234567890",settings.update2ndValues);
 		};
 		return false; //disable default action
 	};
@@ -165,21 +191,8 @@ function checkClickHandle(event) {
 }
 // virtual keyboard button click handler
 function keyClickHandle(event) {
-	if (inValue.element === undefined) return;
 	var key = event.currentTarget.value;
-	var inLen = inValue.element.innerHTML.length;
-	if (key == "B" && inLen > 0) {
-		inValue.element.innerHTML=inValue.element.innerHTML.substr(0, inLen-1);
-		return null;
-   }
-   if (key == "E" && inLen > 0) {
-   	inValue.onchange();
-   	return null;
-   }
-   if (inLen >= inValue.maxLen) return;
-   if (inValue.chars.search(key) < 0) return null;
-   inValue.element.innerHTML += key;
-	return null;
+	currentField.inKey(key);
 }
 
 function keyPressHandle(event) {
