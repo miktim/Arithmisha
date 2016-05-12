@@ -181,21 +181,7 @@ function keyClickHandle(event) {
    inValue.element.innerHTML += key;
 	return null;
 }
-// https://learn.javascript.ru/keyboard-events
-// event.type должен быть keypress
-/*function keyPressHandle(event) {
-  if (event.which == null) { // IE
-    if (event.keyCode < 32) return null; // спец. символ
-    return String.fromCharCode(event.keyCode)
-  }
 
-  if (event.which != 0 && event.charCode != 0) { // все кроме IE
-    if (event.which < 32) return null; // спец. символ
-    return String.fromCharCode(event.which); // остальные
-  }
-
-  return null; // спец. символ
-}*/
 function keyPressHandle(event) {
   var key = event.keyCode;
   if (key == 8) { key = 66;} //backspace = B
@@ -325,27 +311,23 @@ function appendList(dest, src) {
 //
 function fillTask() {
 	var taskLst = generateTask();
-	var tmpLst = document.getElementById("divTask")
-		.getElementsByTagName("table")[0].getElementsByTagName("table");
-	var trLst = [];
-	trLst = appendList(trLst, tmpLst[0].getElementsByTagName("tr")); 
-	trLst = appendList(trLst, tmpLst[1].getElementsByTagName("tr"));
 //
 	var firstQuestion = true;
 	for (var i=0; i < taskLst.length; i++) {
 		var exArr = taskLst[i].split(" ");
-		var tdLst = trLst[i].getElementsByTagName("td");
-		for (var j=0; j<tdLst.length; j++){
-			tdLst[j].innerHTML = exArr[j];
+		for (var j=0; j<5; j++){
+			var tdId = "e"+String(i)+String(j);
+			var tdEl = document.getElementById(tdId);
+			tdEl.innerHTML = exArr[j];
 			if (exArr[j] == "?") {
 				if (firstQuestion) { 
-					tdLst[j].className = "inField";
+					tdEl.className = "edited";
 					firstQuestion = false;
 				} else {
-					tdLst[j].className="exQuestion";
+					tdEl.className="editable";
 				}
 			} else {
-				tdLst[j].className="exNormal";
+				tdEl.className="exNormal";
 			}
 		}
 	}	

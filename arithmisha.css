@@ -2,30 +2,10 @@ body {
 	background-color: white;
 	margin: 0;}
 td {text-align: left;}
-.unfocusedField {
-	color: white;
-	text-align: center;
-	font-size: 20px;
-	border-width: 1px;
-	border-style: solid;
-	border-color: white;
-}
-.inField {
-	color: black;
-	text-align: center;
-	font-size: 20px;
-	background-color: white;
-	border-width: 1px;
-	border-style: solid;
-	border-color: black;
-}
+
 .exNormal {
 	text-align: center;
 	color: white;
-}
-.exQuestion {
-	text-align: center;
-	color: yellow;
 }
 .exWrongAnswer {
 	text-align: center;
@@ -36,18 +16,24 @@ td {text-align: left;}
 	text-align: center;
 	color: lightgreen;
 }
-img {border-width: 0}
-area {border-width: 0}
-var {font-style: normal;}
+img {
+	border-width: 0;
+}
+area {
+	border-width:0;
+}
+var {
+	font-style: normal;
+}
 button {
 	height: 50px;
 	line-height: 40px;
 	text-align: center;
-	border-width: 1px;
+	border-width: 2px;
 	border-radius: 8px;
 /*	font-size: 18px;
-	color: gray;
-	background-color: black;*/
+	color: gray;*/
+	background-color: lightgray;
 }
 button.keyButton {
 	width: 50px;
@@ -79,40 +65,41 @@ button.keyButtonWide {
 .layer5 { z-index: 5; }
 .layer9 { z-index: 9; }
 .layer10{ z-index: 10;} 
-/* http://stackoverflow.com/revisions/16344389/7 */
-.blink {
-    -webkit-animation-name: blinker;
-    -webkit-animation-duration: 1s;
-    -webkit-animation-timing-function: linear;
-    -webkit-animation-iteration-count: infinite;
-
-    -moz-animation-name: blinker;
-    -moz-animation-duration: 1s;
-    -moz-animation-timing-function: linear;
-    -moz-animation-iteration-count: infinite;
-
-    animation-name: blinker;
-    animation-duration: 1s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
+.editable {
+	font-size: 20px;
+	text-align: center;
+	color: yellow;
 }
-
-@-moz-keyframes blinker {  
-    0% { opacity: 1.0; }
-    50% { opacity: 0.0; }
-    100% { opacity: 1.0; }
+/* blinking border http://stackoverflow.com/questions/23635271/how-to-make-an-elements-border-flash */
+@-webkit-keyframes borderBlink {    
+    from, to {    
+        border-color: transparent    
+    }    
+    50% {    
+        border-color: black    
+    }    
+}    
+@keyframes borderBlink {    
+    from, to {    
+        border-color: transparent    
+    }    
+    50% {    
+        border-color: black    
+    }    
+}    
+.borderBlink{    
+    border:1px solid black;
+    /* add 'border-color: transparent' if you wish no border to show initially */  
 }
-
-@-webkit-keyframes blinker {  
-    0% { opacity: 1.0; }
-    50% { opacity: 0.0; }
-    100% { opacity: 1.0; }
+.edited {
+   -webkit-animation: borderBlink 1s step-end infinite;    
+   animation: borderBlink 1s step-end infinite;    
+	color: black;
+	text-align: center;
+	font-size: 20px;
+	background-color: white;
+   border:1px solid black;
+/*	border-width: 1px;
+	border-style: solid;
+	border-color: black;*/
 }
-
-@keyframes blinker {  
-    0% { opacity: 1.0; }
-    50% { opacity: 0.0; }
-    100% { opacity: 1.0; }
-}
-
-
