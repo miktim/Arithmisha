@@ -3,16 +3,19 @@ body {
 	margin: 0;}
 td {text-align: left;}
 
-.exNormal {
+.normal {
+	font-size: 20px;
 	text-align: center;
 	color: white;
 }
-.exWrongAnswer {
+.wrongAnswer {
+	font-size: 20px;
 	text-align: center;
 	color: red;
 	text-decoration: line-through;
 }
-.exRightAnswer {
+.rightAnswer {
+	font-size: 20px;
 	text-align: center;
 	color: lightgreen;
 }
@@ -29,19 +32,16 @@ button {
 	height: 50px;
 	line-height: 40px;
 	text-align: center;
-	border-width: 2px;
+	border-width: 1px;
 	border-radius: 8px;
-/*	font-size: 18px;
-	color: gray;*/
 	background-color: lightgray;
 }
 button.keyButton {
 	width: 50px;
+	font-weight: bold;
 }
 button.keyButtonWide {
 	width: 75px;
-/*	font-family: arial,sans-serif;
-	font-weight: bold;*/
 }
 .rotate3deg {
 	-webkit-transform: rotate(3deg);
@@ -66,7 +66,7 @@ button.keyButtonWide {
 .layer9 { z-index: 9; }
 .layer10{ z-index: 10;} 
 
-.editable {
+td.editable {
 	font-size: 20px;
 	text-align: center;
 	color: yellow;
@@ -77,7 +77,7 @@ button.keyButtonWide {
         border-color: transparent    
     }    
     50% {    
-        border-color: black    
+        border-color: darkgray    
     }    
 }    
 @keyframes borderBlink {    
@@ -85,19 +85,19 @@ button.keyButtonWide {
         border-color: transparent    
     }    
     50% {    
-        border-color: black    
+        border-color: darkgray    
     }    
 }    
 .borderBlink{    
-    border:1px solid black;
+    border:1px solid darkgray;
     /* add 'border-color: transparent' if you wish no border to show initially */  
 }
-.edited {
+td.edited {
    -webkit-animation: borderBlink 1s step-end infinite;    
    animation: borderBlink 1s step-end infinite;    
 	color: black;
 	text-align: center;
-	font-size: 20px;
+	font-size: 18px;
 	background-color: white;
    border:1px solid black;
 /*	border-width: 1px;

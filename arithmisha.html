@@ -22,7 +22,7 @@ Arithmisha
 	<link rel="stylesheet" type="text/css" href="arithmisha.css">
 </head>
 
-<body onload="postLoadInit();" onkeypress="keyPressHandle(event);">
+<body onload="postLoadInit();" onkeypress="keyUpHandle(event);">
 
 <div class="layer1">
 <div style="text-align:center;">
@@ -50,7 +50,6 @@ Arithmisha
 		<button value="B" type="button" class="keyButtonWide">BS</button> <!--Backspace-->
 	</div>
 	<div style="padding-top: 4px;">
-		<!--button value="esc" type="button" class="keyButton">Esc</button-->
 		<button value="+" type="button" class="keyButton">+</button>
 		<button value="-" type="button" class="keyButton">-</button>
 		<button id="keyMul" value="*" type="button" class="keyButton">*</button>
@@ -59,14 +58,14 @@ Arithmisha
 		<button value=">" type="button" class="keyButton">&gt;</button>
 		<button value="=" type="button" class="keyButton">=</button>
 		<button value="." type="button" class="keyButton">.</button>
-		<button value="E" type="button" class="keyButtonWide">Enter</button> <!--Enter&#x23ce;-->
+		<button value="E" type="button" class="keyButtonWide">Enter</button> <!--&#x23ce;-->
 	</div>
 </div>
 </div>
 <!--
 
 -->
-<div id="divTask" class="layer2" style="font-size:20px; top:80px;" >
+<div id="divTask" class="layer2" style="top:80px;" >
 <table style="margin: 0px auto;"><tr>
 	<td style="vertical-align:top;">
 		<table>
@@ -123,7 +122,7 @@ Arithmisha
 </table>
 </div>
 
-<div id="divHelp" class="layer4" style="font-size:18px; top:80px; font-style:italic;" onclick="showTask();" >
+<div id="divHelp" class="layer4" style="visibility:hidden;font-size:18px; top:80px; font-style:italic;" onclick="showTask();" >
 	<div id="helpText" >
 		Help Misha to solve the examples!<br><br>
 		Click here for а new exercise.<br>
