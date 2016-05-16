@@ -118,7 +118,7 @@ Arithmisha
    		 		firstQuestion = false;
    		 		if (i == 0) {
    		 			this.started = (new Date()).getTime();
-        	  	   	document.getElementById("tblRes").style.visibility="hidden";
+        	  	   	document.getElementById("varRes").innerHTML="";
         	  	   }
    		 		this.getAnswer(i);
   		 	   }
@@ -147,9 +147,8 @@ Arithmisha
       	  	   	 currentTask.getAnswer(i+1);
       	  	   	 if (i == currentTask.examples.length-1) { 
       	  	   	    currentTask.timeSec = Math.round(((new Date()).getTime() - currentTask.started)/1000);
-      	  	   	    document.getElementById("tdTimeSec").innerHTML=currentTask.timeSec;
-      	  	   	    document.getElementById("tdErrCnt").innerHTML=currentTask.errCount;
-       	  	   	    document.getElementById("tblRes").style.visibility="visible";
+      	  	   	    document.getElementById("varRes").innerHTML=
+      	  	   	        resFormat.replace("%t",currentTask.timeSec).replace("%e",currentTask.errCount);
       	  	   	 }
       	  	     }
       	  	 );
@@ -214,7 +213,9 @@ Arithmisha
    var eGood="Good work, Misha.";
    var eSatisfy="Try again, Misha.";
    var eBad="????";
-
+//
+	var resFormat = "Time (sec): %t  Errors: %e";
+	
 function postLoadInit() {
    document.getElementById("aboutApp").innerHTML = document.title;
    document.getElementById("keyMul").value = document.getElementById("keyMul").innerHTML;

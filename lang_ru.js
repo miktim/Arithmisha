@@ -19,8 +19,6 @@ document.getElementById("setFindOpd").innerHTML = "операнд";
 document.getElementById("setFindOp").innerHTML = "действие";
 document.getElementById("setFindRel").innerHTML = "отношение";
 document.getElementById("setOpd2nd").innerHTML = "2-й операнд";
-document.getElementById("tdTaskTime").innerHTML = "Время (сек):";
-document.getElementById("tdTaskErr").innerHTML = "Oшибок:";
 document.getElementById("aboutCharacters").innerHTML = 
 	"Все персонажи вымышлены.<br>Любое сходство<br>с реальными людьми<br>случайно.<br>";
 document.getElementById("helpText").innerHTML = 
@@ -35,3 +33,4 @@ document.getElementById("helpText").innerHTML =
 eExcellent="Отлично, Миша!";
 eGood="Хорошо, Миша.";
 eSatisfy="Попробуй еще раз.";
+resFormat="Время (сек): %t Oшибок: %e";
