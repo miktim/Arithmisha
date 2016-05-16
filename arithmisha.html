@@ -29,7 +29,7 @@ Arithmisha
 	<img src="all.png" width="518" height="334" usemap="#scene" alt="Arithmisha Арифмиша">
 	<map name="scene">
 		<area id="areaMap" shape="rect" coords="164,22,364,54" href="" alt="Map" title="About...">
-		<area id="areaMisha" shape="rect" coords="438,144,515,322" href="" alt="Misha" title="Misha. View daybook?" >
+		<area id="areaMisha" shape="rect" coords="438,144,515,322" href="" alt="Misha" title="Misha. View history?" >
 		<area id="areaTeacher" shape="rect" coords="1,178,78,330" href="" alt="Teacher" title="Teacher. New settings?">
 		<area id="areaPupils" shape="rect" coords="127,258,404,333" href="" alt="Class" title="Class. Need help?">
 		<area id="areaBlackboard" shape="rect" coords="45,60,480,255" href="" alt="Blackboard" title="Blackboard. New exercise?" >
@@ -65,7 +65,7 @@ Arithmisha
 <!--
 
 -->
-<div id="divTask" class="layer2" style="top:80px;" >
+<div id="divTask" class="layer2" style="top:70px;" >
 <table style="margin: 0px auto;"><tr>
 	<td style="vertical-align:top;">
 		<table>
@@ -86,6 +86,9 @@ Arithmisha
 		 	<tr><td id="e90"><td id="e91"><td id="e92"><td id="e93"><td id="e94"><td id="e95"></tr>
 		</table>
 	</td>
+</table>
+<table id="tblRes" style="margin: 0px auto; vertical-align: top; visibility:hidden;">
+   <tr><td id="tdTaskTime">Time (sec):</td><td id="tdTimeSec"><td id="tdTaskErr">Errors:</td><td id="tdErrCnt"></tr>
 </table>
 </div>
 
@@ -127,7 +130,7 @@ Arithmisha
 		Help Misha to solve the examples!<br><br>
 		Click here for а new exercise.<br>
 		Click the Teacher to adjust the difficulty.<br>
-		Click Misha to view daybook.<br>
+		Click Misha to view history.<br>
 		Click pupils to get this help.<br>
 	</div>
 </div>

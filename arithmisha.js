@@ -72,7 +72,7 @@ Arithmisha
         }
       , inKey: function(key) {
          if (this.element === undefined) return;
-         var inValue = decode(this.element.innerHTML); //&GT; &LT;
+         var inValue = decodeHTML(this.element.innerHTML); //&GT; &LT;
          var inLen = inValue.length;
          if (key == "B" && inLen > 0) {
             this.element.innerHTML=inValue.substr(0, inLen-1);
@@ -84,6 +84,7 @@ Arithmisha
          }
          if (inLen >= this.maxLen) return;
          if (this.chars.search(key) < 0) return ; // char enabled?
+         if (key == "." && inValue.search(".") > 0) return; 
          this.element.innerHTML += key;
         }
       };
@@ -93,6 +94,7 @@ Arithmisha
       , examples: new Array()
       , exIndex: -1
       , started: undefined
+      , errCount: 0
       , set: function(strTask) {
           this.examples = strTask.split(",");
           this.timeSec = Number(this.examples.shift());
@@ -115,7 +117,11 @@ Arithmisha
    		 	if (firstQuestion && exAr[exAr[6]] == "?") {
    		 		firstQuestion = false;
    		 		this.getAnswer(i);
-   		 	}
+   		 		if (i == 0) {
+   		 			this.started = (new Date()).getTime();
+        	  	   	document.getElementById("tblRes").style.visibility="hide";
+        	  	   }
+  		 	   }
       	 }
       	 if (firstQuestion) {this.generate(); this.show();}
         }
@@ -131,12 +137,20 @@ Arithmisha
       	  	 currentField.set(el, exAr[5].length, charset
       	  	   , function() {
       	  	   	 var i = currentTask.exIndex;
-      	  	   	 var answer = decode(this.element.innerHTML);
+      	  	   	 var answer = decodeHTML(this.element.innerHTML);
+      	  	   	 if (!isNaN(parseFloat(answer)) && isFinite(answer))
+      	  	   	    { answer=roundToTenths(Number(answer)); }
       	  	   	 currentTask.examples[i] = 
       	  	   	    currentTask.examples[i].replace("?", answer);
       	  	   	 this.reset();
       	  	   	 currentTask.showExample(i);
       	  	   	 currentTask.getAnswer(i+1);
+      	  	   	 if (i == currentTask.examples.length-1) { 
+      	  	   	    currentTask.timeSec = Math.round(((new Date()).getTime() - currentTask.started)/1000);
+      	  	   	    document.getElementById("tdTimeSec").innerHTML=currentTask.timeSec;
+      	  	   	    document.getElementById("tdErrCnt").innerHTML=currentTask.errCount;
+       	  	   	    document.getElementById("tblRes").style.visibility="visible";
+      	  	   	 }
       	  	     }
       	  	 );
       	  } else {
@@ -147,14 +161,22 @@ Arithmisha
       , showExample: function(i) {
       	 var exArr = this.examples[i].split(" ");
       	 for (var j=0; j<5; j++){
-         	var tdId = "e"+String(i)+String(j);
-         	var tdEl = document.getElementById(tdId);
+         	var tdEl = document.getElementById("e"+String(i)+String(j));
+         	var tdElAnswer = document.getElementById("e"+String(i)+"5");
          	tdEl.innerHTML = exArr[j];
          	if (exArr[j] == "?") {
                tdEl.className="editable";
+               tdElAnswer.innerHTML = "";
          	} else {
          		if (j == exArr[6]) {
-         		  tdEl.className = (exArr[j] !== exArr[5] ? "wrongAnswer" : "rightAnswer"); 
+         			if (exArr[j] !== exArr[5]) {
+          			   currentTask.errCount += 1;
+          			   tdEl.className = "wrongAnswer";
+          			   tdElAnswer.innerHTML = exArr[5];
+          			   tdElAnswer.className = "rightAnswer";
+         			} else {
+         				tdEl.className = "rightAnswer";
+         			}
          		} else {
             	  tdEl.className="normal";
             	}
@@ -164,6 +186,7 @@ Arithmisha
       , generate: function() {
       	 this.examples = generateTask();
       	 this.timeSec = -1;
+      	 this.errCount = 0;
       	 saveData("Task",this.get());
         }
       };
@@ -256,6 +279,7 @@ function postLoadInit() {
       document.getElementById("divAbout").style.visibility = "hidden";
       return false; //disable default action
    };
+   daybook.restore();
    settings.restore();
 // for each checkbox class in settings scene assign onclick handler
    var checkClassNames = ["setOp","setOrder","setFind"];
@@ -327,7 +351,7 @@ function blackboardClick(){
       currentTask.show();
 }
 //
-function decode(str) {
+function decodeHTML(str) {
   	 if (str.toUpperCase() == "&GT;") {return ">";}
   	 if (str.toUpperCase() == "&LT;") {return "<";}
   	 return str;

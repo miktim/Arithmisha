@@ -1,7 +1,7 @@
 document.title = "Арифмиша";
 document.getElementById("areaMap").title = "От автора...";
 document.getElementById("areaTeacher").title = "Стро-о-огая Марьванна. Усложнить задание?";
-document.getElementById("areaMisha").title = "Я - Миша. Показать дневник?";
+document.getElementById("areaMisha").title = "Я - Миша. Показать успехи?";
 document.getElementById("areaBlackboard").title = "Новое задание?";
 document.getElementById("areaPupils").title = "Мы - класс! Помочь?";
 document.getElementById("setOp").innerHTML = "Действия";
@@ -19,13 +19,15 @@ document.getElementById("setFindOpd").innerHTML = "операнд";
 document.getElementById("setFindOp").innerHTML = "действие";
 document.getElementById("setFindRel").innerHTML = "отношение";
 document.getElementById("setOpd2nd").innerHTML = "2-й операнд";
+document.getElementById("tdTaskTime").innerHTML = "Время (сек):";
+document.getElementById("tdTaskErr").innerHTML = "Oшибок:";
 document.getElementById("aboutCharacters").innerHTML = 
 	"Все персонажи вымышлены.<br>Любое сходство<br>с реальными людьми<br>случайно.<br>";
 document.getElementById("helpText").innerHTML = 
 	"Помоги Мише решить примеры!<br><br>" +
 	"Кликни здесь для нового задания.<br>" +
 	"Кликни Марьванну для настройки.<br>" +
-	"Кликни Мишу для просмотра дневника.<br>" +
+	"Кликни Мишу для просмотра истории.<br>" +
 	"Кликни класс для справки.";
 //document.getElementById("keyMul").innerHTML = "x";
 //document.getElementById("keyDiv").innerHTML = ":";
