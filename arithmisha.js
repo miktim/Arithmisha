@@ -206,7 +206,7 @@ Arithmisha
         } 
       , restore: function() {
       	 var str = restoreData("Daybook");
-      	 this.tasks = str.split(";");
+      	 if (str !== undefined) this.tasks = str.split(";");
         } 
       };
 // estimate results		
@@ -339,7 +339,7 @@ function keyUpHandle(event) {
     if (keyCode == 44) { key = ".";} //comma = dot
   }
   if (key !== undefined) currentField.inKey(key);
-  return false; // спец. символ
+  return true; // 
 }
 //
 function blackboardClick(){
