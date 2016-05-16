@@ -72,9 +72,10 @@ Arithmisha
         }
       , inKey: function(key) {
          if (this.element === undefined) return;
-         var inLen = this.element.innerHTML.length;
+         var inValue = decode(this.element.innerHTML); //&GT; &LT;
+         var inLen = inValue.length;
          if (key == "B" && inLen > 0) {
-            this.element.innerHTML=this.element.innerHTML.substr(0, inLen-1);
+            this.element.innerHTML=inValue.substr(0, inLen-1);
             return;
          }
          if (key == "E" && inLen > 0 && typeof this.onChange === "function") {
@@ -116,6 +117,7 @@ Arithmisha
    		 		this.getAnswer(i);
    		 	}
       	 }
+      	 if (firstQuestion) {this.generate(); this.show();}
         }
       , getAnswer: function(i) {
       	  if (i < this.examples.length) {
@@ -129,14 +131,17 @@ Arithmisha
       	  	 currentField.set(el, exAr[5].length, charset
       	  	   , function() {
       	  	   	 var i = currentTask.exIndex;
+      	  	   	 var answer = decode(this.element.innerHTML);
       	  	   	 currentTask.examples[i] = 
-      	  	   	    currentTask.examples[i].replace("?", this.element.innerHTML);
+      	  	   	    currentTask.examples[i].replace("?", answer);
       	  	   	 this.reset();
       	  	   	 currentTask.showExample(i);
       	  	   	 currentTask.getAnswer(i+1);
       	  	     }
       	  	 );
       	  } else {
+      	  	  deleteData("Task");
+      	  	  daybook.addTask(currentTask.get());
       	  }
         }
       , showExample: function(i) {
@@ -171,8 +176,8 @@ Arithmisha
       	 }
       	 this.tasks.push(taskStr);
       	 var str = this.tasks[0];
-      	 for (var i = 1; i < this.task.length; i++) {
-      	 	 str += ";" + tasks[i];
+      	 for (var i = 1; i < this.tasks.length; i++) {
+      	 	 str += ";" + this.tasks[i];
       	 }
       	 saveData("Daybook", str);
         } 
@@ -321,6 +326,12 @@ function blackboardClick(){
       document.getElementById("divAbout").style.visibility = "hidden";
       currentTask.show();
 }
+//
+function decode(str) {
+  	 if (str.toUpperCase() == "&GT;") {return ">";}
+  	 if (str.toUpperCase() == "&LT;") {return "<";}
+  	 return str;
+}
 // Round number to tenths
 //http://stackoverflow.com/questions/11832914/round-to-at-most-2-decimal-places-in-javascript		
 function roundToTenths(num) {    
@@ -419,6 +430,10 @@ function generateTask() {
    var examplesArr = new Array();
    for (var i=0; i<10; i++) examplesArr.push(generateExample());
    return examplesArr;
+}
+//
+function deleteData(name) {
+	deleteCookie(name);
 }
 //
 function restoreData(name) {
