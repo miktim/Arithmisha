@@ -116,11 +116,11 @@ Arithmisha
    		 	this.showExample(i);
    		 	if (firstQuestion && exAr[exAr[6]] == "?") {
    		 		firstQuestion = false;
-   		 		this.getAnswer(i);
    		 		if (i == 0) {
    		 			this.started = (new Date()).getTime();
-        	  	   	document.getElementById("tblRes").style.visibility="hide";
+        	  	   	document.getElementById("tblRes").style.visibility="hidden";
         	  	   }
+   		 		this.getAnswer(i);
   		 	   }
       	 }
       	 if (firstQuestion) {this.generate(); this.show();}
