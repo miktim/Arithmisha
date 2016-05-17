@@ -187,7 +187,6 @@ Arithmisha
       , reset: function() {
       	 this.examples = new Array();
       	 this.timeSec = -1;
-      	 this.errCount = 0;
       	 resetData("Task");
         }
       , generate: function() {
@@ -232,8 +231,8 @@ Arithmisha
       , showPrevTask: function() {
       	 if (this.tasks.length == 0) return;
       	 this.tsIndex -= 1;
-      	 if (this.tsIndex <= 0) this.tsIndex = this.tasks.length -1;
-       	 document.getElementById("varTaskNo").innerHTML = this.tsIndex;
+      	 if (this.tsIndex < 0) this.tsIndex = this.tasks.length -1;
+       	 document.getElementById("varTaskNo").innerHTML = (this.tsIndex+1) + "/" + this.tasks.length;
       	 currentTask.set(this.tasks[this.tsIndex]);
       	 currentTask.show();
         } 
