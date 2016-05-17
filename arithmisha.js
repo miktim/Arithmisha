@@ -9,7 +9,9 @@ Arithmisha
       , min2nd:1	// 2nd operand from
       , max2nd:9 	// 2nd operand to
       , save: function() {
-            saveData("Settings",this.bitmask + "$" + this.min2nd + "$" + this.max2nd); 
+            saveData("Settings",this.bitmask + "$" + this.min2nd + "$" + this.max2nd);
+            currentTask.reset();
+            daybook.reset(); 
          }
       , restore: function() {
             var settingsStr = restoreData("Settings");
@@ -83,7 +85,7 @@ Arithmisha
             return;
          }
          if (inLen >= this.maxLen) return;
-         if (this.chars.search(key) < 0) return ; // char enabled?
+         if (this.chars.indexOf(key) < 0) return ; // char enabled?
          if (key == "." && inValue.search(".") > 0) return; 
          this.element.innerHTML += key;
         }
@@ -103,27 +105,27 @@ Arithmisha
       	  return String(this.timeSec) + "," + this.examples;
         }
       , show: function() {
-      	 if (this.examples.length == 0) {
-      	 	var str = restoreData("Task");
-      	 	if (str !== undefined) {
-      	 	  this.set(str); 
-      	 	} else { this.generate(); }
-      	 }
+      	 if (this.examples.length == 0) this.generate();
+      	 this.errCount = 0;
           var firstQuestion = true;
-          var exAr;
+   	    document.getElementById("varResult").innerHTML="";
    		 for (var i=0; i < this.examples.length; i++) {
-   		 	exAr = this.examples[i].split(" ");
+   		 	var exAr = this.examples[i].split(" ");
    		 	this.showExample(i);
    		 	if (firstQuestion && exAr[exAr[6]] == "?") {
-   		 		firstQuestion = false;
+        	     document.getElementById("varTaskNo").innerHTML = "";
+  		 		  firstQuestion = false;
    		 		if (i == 0) {
    		 			this.started = (new Date()).getTime();
-        	  	   	document.getElementById("varRes").innerHTML="";
         	  	   }
    		 		this.getAnswer(i);
   		 	   }
       	 }
-      	 if (firstQuestion) {this.generate(); this.show();}
+      	 if (firstQuestion) {
+      	    document.getElementById("varResult").innerHTML=resFormat
+      	       .replace("%t", currentTask.timeSec)
+      	       .replace("%e", currentTask.errCount);
+      	 }
         }
       , getAnswer: function(i) {
       	  if (i < this.examples.length) {
@@ -147,14 +149,12 @@ Arithmisha
       	  	   	 currentTask.getAnswer(i+1);
       	  	   	 if (i == currentTask.examples.length-1) { 
       	  	   	    currentTask.timeSec = Math.round(((new Date()).getTime() - currentTask.started)/1000);
-      	  	   	    document.getElementById("varRes").innerHTML=
-      	  	   	        resFormat.replace("%t",currentTask.timeSec).replace("%e",currentTask.errCount);
+      	  	  			 resetData("Task");
+      	  	  			 daybook.addTask(currentTask.get());
+      	  	  			 currentTask.show();
       	  	   	 }
       	  	     }
       	  	 );
-      	  } else {
-      	  	  deleteData("Task");
-      	  	  daybook.addTask(currentTask.get());
       	  }
         }
       , showExample: function(i) {
@@ -163,9 +163,9 @@ Arithmisha
          	var tdEl = document.getElementById("e"+String(i)+String(j));
          	var tdElAnswer = document.getElementById("e"+String(i)+"5");
          	tdEl.innerHTML = exArr[j];
+            tdElAnswer.innerHTML = "";
          	if (exArr[j] == "?") {
                tdEl.className="editable";
-               tdElAnswer.innerHTML = "";
          	} else {
          		if (j == exArr[6]) {
          			if (exArr[j] !== exArr[5]) {
@@ -173,6 +173,8 @@ Arithmisha
           			   tdEl.className = "wrongAnswer";
           			   tdElAnswer.innerHTML = exArr[5];
           			   tdElAnswer.className = "rightAnswer";
+//							tdEl.innerHTML = '<span class="wrongAnswer">' + exArr[j] 
+//							   + '</span><span class="rightAnswer"> '+ exArr[5] + '</span>';
          			} else {
          				tdEl.className = "rightAnswer";
          			}
@@ -182,18 +184,29 @@ Arithmisha
          	}
         	 }
         }
-      , generate: function() {
-      	 this.examples = generateTask();
+      , reset: function() {
+      	 this.examples = new Array();
       	 this.timeSec = -1;
       	 this.errCount = 0;
+      	 resetData("Task");
+        }
+      , generate: function() {
+      	 var str = restoreData("Task");
+      	 if (str !== undefined) {
+      	   this.set(str);
+      	   return; 
+      	 }
+      	 this.reset();
+      	 this.examples = generateTask();
       	 saveData("Task",this.get());
         }
       };
 //
    var daybook =
       { tasks: new Array()
+      , tsIndex: -1
       , addTask: function(taskStr) {
-      	 if (this.tasks.length == 3) { 
+      	 if (this.tasks.length == 4) { 
       	   this.tasks.shift();
       	 }
       	 this.tasks.push(taskStr);
@@ -202,10 +215,27 @@ Arithmisha
       	 	 str += ";" + this.tasks[i];
       	 }
       	 saveData("Daybook", str);
+      	 this.tsIndex = this.tasks.length-1;
         } 
       , restore: function() {
       	 var str = restoreData("Daybook");
-      	 if (str !== undefined) this.tasks = str.split(";");
+      	 if (str !== undefined) {
+      	 	this.tasks = str.split(";");
+      	 	this.tsIndex = this.tasks.length-1;
+      	 }
+        }
+      , reset: function() {
+      	 this.tasks = new Array();
+      	 this.tsIndex = -1;
+      	 resetData("Daybook");
+        }
+      , showPrevTask: function() {
+      	 if (this.tasks.length == 0) return;
+      	 this.tsIndex -= 1;
+      	 if (this.tsIndex <= 0) this.tsIndex = this.tasks.length -1;
+       	 document.getElementById("varTaskNo").innerHTML = this.tsIndex;
+      	 currentTask.set(this.tasks[this.tsIndex]);
+      	 currentTask.show();
         } 
       };
 // estimate results		
@@ -214,7 +244,7 @@ Arithmisha
    var eSatisfy="Try again, Misha.";
    var eBad="????";
 //
-	var resFormat = "Time (sec): %t  Errors: %e";
+	var resFormat = "%t sec, %e errors";
 	
 function postLoadInit() {
    document.getElementById("aboutApp").innerHTML = document.title;
@@ -222,67 +252,35 @@ function postLoadInit() {
    document.getElementById("keyDiv").value = document.getElementById("keyDiv").innerHTML;
    document.getElementById("areaTeacher").onclick =
    function() {
-      document.getElementById("divKeyboard").style.visibility = "visible";
-      document.getElementById("divTask").style.visibility = "hidden";
-      document.getElementById("divHelp").style.visibility = "hidden";
-      document.getElementById("divAbout").style.visibility = "hidden";
-      settings.restore();
-      var settingsEl = document.getElementById("divSettings");
-      if (settingsEl.style.visibility == "visible") {
-         settingsEl.style.visibility = "hidden";
-         currentField.reset();
-      } else { 
-         settingsEl.style.visibility = "visible";
-         currentField.set(document.getElementById("minOpd2nd")
-           , 2 , "1234567890"
-           , function() {
-           	  settings.update2ndValues();
-           	  if (currentField.element === document.getElementById("minOpd2nd")) {
-           	  	  currentField.setElement(document.getElementById("maxOpd2nd"));
-           	  } else {
-           	  	  currentField.setElement(document.getElementById("minOpd2nd"));
-           	  }
-           }
-         );
-      };
+   	clickTeacher();
       return false; //disable default action
    };
 	
    document.getElementById("areaMisha").onclick =
    function() {
-      document.getElementById("divKeyboard").style.visibility = "hidden";
-      document.getElementById("divTask").style.visibility = "visible";
-      document.getElementById("divSettings").style.visibility = "hidden";
-      document.getElementById("divHelp").style.visibility = "hidden";
-      document.getElementById("divAbout").style.visibility = "hidden";
+      clickMisha();
       return false; //disable default action
    };
 	
    document.getElementById("areaBlackboard").onclick =
    function() {
-      blackboardClick();
+      clickBlackboard();
       return false; //disable default action
    };
+   
    document.getElementById("areaMap").onclick =
    function() {
-//		document.getElementById("divKeyboard").style.visibility = "hidden";
-//		document.getElementById("divTask").style.visibility = "hidden";
-//		document.getElementById("divSettings").style.visibility = "hidden";
       document.getElementById("divAbout").style.visibility = "visible";
       return false; //disable default action
    };
    document.getElementById("areaPupils").onclick =
    function() {
-      document.getElementById("divKeyboard").style.visibility = "hidden";
-      document.getElementById("divTask").style.visibility = "hidden";
-      document.getElementById("divSettings").style.visibility = "hidden";
-      document.getElementById("divHelp").style.visibility = "visible";
-      document.getElementById("divAbout").style.visibility = "hidden";
+		clickPupils();
       return false; //disable default action
    };
    daybook.restore();
    settings.restore();
-// for each checkbox class in settings scene assign onclick handler
+// for each checkbox in settings scene assign onclick handler
    var checkClassNames = ["setOp","setOrder","setFind"];
    for (var j=0; j < checkClassNames.length; j++) {
       var checkGrp = document.getElementsByClassName(checkClassNames[j]);
@@ -291,7 +289,7 @@ function postLoadInit() {
          checkGrp[i].onclick = function(event) { return checkClickHandle(event); }
       } 
    }
-// for keyboard assign onclick handler
+// for virtual keyboard buttons assign onclick handler
    var keyClassNames = ["keyButton","keyButtonWide"];
    for (var j=0; j < keyClassNames.length; j++) {
       var keyGrp = document.getElementsByClassName(keyClassNames[j]);
@@ -301,6 +299,9 @@ function postLoadInit() {
    }
    document.getElementById("divHelp").style.visibility = "visible";
 };
+/*
+ * Event Handlers
+ */
 // CheckBoxes onclick handler
 function checkClickHandle(event) {
    var el = event.currentTarget;
@@ -322,18 +323,18 @@ function checkClickHandle(event) {
    settings.save();
    return true;
 }
-// virtual keyboard button click handler
+// Virtual keyboard button click handler
 function keyClickHandle(event) {
    var key = event.currentTarget.value;
    currentField.inKey(key);
 }
-// physical keyboard handler (some browsers don't handle keypress event for backspace keyCode=8)
+// Physical keyboard handler (some browsers don't handle keypress event for backspace keyCode=8)
 function keyUpHandle(event) {
   var keyCode = event.keyCode;
   if (keyCode == 0) { keyCode = event.which; }
   var key = String.fromCharCode(keyCode);      
   var enabledKeys = "1234567890/*-+<>=.";
-  if (enabledKeys.search(key) < 0) {
+  if (enabledKeys.indexOf(key) < 0) {
   	 key = undefined;
     if (keyCode == 8)  { key = "B";} //backspace = B
     if (keyCode == 13) { key = "E";} //enter = E
@@ -342,14 +343,61 @@ function keyUpHandle(event) {
   if (key !== undefined) currentField.inKey(key);
   return true; // 
 }
+/*
+ * Click map areas procedures
+ */
+function clickBlackboard(){
+   document.getElementById("divKeyboard").style.visibility = "visible";
+   document.getElementById("divTask").style.visibility = "visible";
+   document.getElementById("divSettings").style.visibility = "hidden";
+   document.getElementById("divHelp").style.visibility = "hidden";
+   document.getElementById("divAbout").style.visibility = "hidden";
+   currentTask.generate();
+   currentTask.show();
+}
 //
-function blackboardClick(){
-      document.getElementById("divKeyboard").style.visibility = "visible";
-      document.getElementById("divTask").style.visibility = "visible";
-      document.getElementById("divSettings").style.visibility = "hidden";
-      document.getElementById("divHelp").style.visibility = "hidden";
-      document.getElementById("divAbout").style.visibility = "hidden";
-      currentTask.show();
+function clickTeacher() {
+   document.getElementById("divKeyboard").style.visibility = "visible";
+   document.getElementById("divTask").style.visibility = "hidden";
+   document.getElementById("divHelp").style.visibility = "hidden";
+   document.getElementById("divAbout").style.visibility = "hidden";
+   settings.restore();
+   var settingsEl = document.getElementById("divSettings");
+   if (settingsEl.style.visibility == "visible") {
+      settingsEl.style.visibility = "hidden";
+      currentField.reset();
+   } else { 
+      settingsEl.style.visibility = "visible";
+      currentField.set(document.getElementById("minOpd2nd")
+         , 1 // 2nd operand from 1 to 9
+         , "1234567890"
+         , function() {
+        	   settings.update2ndValues();
+            if (currentField.element === document.getElementById("minOpd2nd")) {
+               currentField.setElement(document.getElementById("maxOpd2nd"));
+            } else {
+               currentField.setElement(document.getElementById("minOpd2nd"));
+           	}
+         }
+      );
+   };
+}
+//
+function clickMisha() {
+   document.getElementById("divKeyboard").style.visibility = "hidden";
+   document.getElementById("divTask").style.visibility = "visible";
+   document.getElementById("divSettings").style.visibility = "hidden";
+   document.getElementById("divHelp").style.visibility = "hidden";
+   document.getElementById("divAbout").style.visibility = "hidden";
+   daybook.showPrevTask();
+}
+//
+function clickPupils() {
+   document.getElementById("divKeyboard").style.visibility = "hidden";
+   document.getElementById("divTask").style.visibility = "hidden";
+   document.getElementById("divSettings").style.visibility = "hidden";
+   document.getElementById("divHelp").style.visibility = "visible";
+   document.getElementById("divAbout").style.visibility = "hidden";
 }
 //
 function decodeHTML(str) {
@@ -362,7 +410,9 @@ function decodeHTML(str) {
 function roundToTenths(num) {    
    return +(Math.round(num + "e+1")  + "e-1");
 }
-//
+/*
+ * Generate task examples
+ */
 function generateTask() {
    function genAdd(opds) {
       var exArr = opds.split(" ");
@@ -403,8 +453,12 @@ function generateTask() {
       }
       // apply order of magnitude
       var orderVal = selectedArr[1][randInt(0,selectedArr[1].length-1)];
-      if (orderVal > 1) { opd1 = opd1*orderVal; }
-      else { opd2 = opd2*orderVal; };
+      if (orderVal > 1) { 
+         opd1 = opd1*orderVal; 
+      } else { 
+         opd2 = opd2*orderVal;
+         if (opIdx < 2) opd1=opd1*orderVal; //addition, subtraction
+      };
       // swap operands?
       var tmp = opd2;
       if (randInt(0,1)==1) {
@@ -456,8 +510,10 @@ function generateTask() {
    for (var i=0; i<10; i++) examplesArr.push(generateExample());
    return examplesArr;
 }
-//
-function deleteData(name) {
+/*
+ * Save / Restore data (settings, task, daybook)
+ */
+function resetData(name) {
 	deleteCookie(name);
 }
 //
@@ -471,7 +527,6 @@ function saveData(name, value) {
 };
 
 //*
-//
 // https://learn.javascript.ru/cookie
 // возвращает cookie с именем name, если есть, если нет, то undefined
 function getCookie(name) {

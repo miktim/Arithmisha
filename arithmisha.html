@@ -65,33 +65,33 @@ Arithmisha
 <!--
 
 -->
-<div id="divTask" class="layer2" style="top:70px;" >
+<div id="divTask" onclick="clickBlackboard();" class="layer2" style="visibility: hidden; top:65px;" >
+<var id="varTaskNo" style="margin-left:390px; font-size:15px;">4</var>
 <table style="margin: 0px auto;"><tr>
 	<td style="vertical-align:top;">
 		<table>
-		 	<tr><td id="e00"><td id="e01"><td id="e02"><td id="e03"><td id="e04"><td id="e05"></tr>
-		 	<tr><td id="e10"><td id="e11"><td id="e12"><td id="e13"><td id="e14"><td id="e15"></tr>
-		 	<tr><td id="e20"><td id="e21"><td id="e22"><td id="e23"><td id="e24"><td id="e25"></tr>
-		 	<tr><td id="e30"><td id="e31"><td id="e32"><td id="e33"><td id="e34"><td id="e35"></tr>
-		 	<tr><td id="e40"><td id="e41"><td id="e42"><td id="e43"><td id="e44"><td id="e45"></tr>
+		 	<tr><td id="e00"><td id="e01"><td id="e02"><td id="e03"><td id="e04"><td id="e05" style="text-align:left;"></tr>
+		 	<tr><td id="e10"><td id="e11"><td id="e12"><td id="e13"><td id="e14"><td id="e15" style="text-align:left;"></tr>
+		 	<tr><td id="e20"><td id="e21"><td id="e22"><td id="e23"><td id="e24"><td id="e25" style="text-align:left;"></tr>
+		 	<tr><td id="e30"><td id="e31"><td id="e32"><td id="e33"><td id="e34"><td id="e35" style="text-align:left;"></tr>
+		 	<tr><td id="e40"><td id="e41"><td id="e42"><td id="e43"><td id="e44"><td id="e45" style="text-align:left;"></tr>
 		</table>
 	</td>	
-	<td style="width: 30px;"></td>
+	<td style="width: 15px;"></td>
 	<td style="vertical-align:top;">
 		<table>
-		 	<tr><td id="e50"><td id="e51"><td id="e52"><td id="e53"><td id="e54"><td id="e55"></tr>
-		 	<tr><td id="e60"><td id="e61"><td id="e62"><td id="e63"><td id="e64"><td id="e65"></tr>
-		 	<tr><td id="e70"><td id="e71"><td id="e72"><td id="e73"><td id="e74"><td id="e75"></tr>
-		 	<tr><td id="e80"><td id="e81"><td id="e82"><td id="e83"><td id="e84"><td id="e85"></tr>
-		 	<tr><td id="e90"><td id="e91"><td id="e92"><td id="e93"><td id="e94"><td id="e95"></tr>
+		 	<tr><td id="e50"><td id="e51"><td id="e52"><td id="e53"><td id="e54"><td id="e55" style="text-align:left;"></tr>
+		 	<tr><td id="e60"><td id="e61"><td id="e62"><td id="e63"><td id="e64"><td id="e65" style="text-align:left;"></tr>
+		 	<tr><td id="e70"><td id="e71"><td id="e72"><td id="e73"><td id="e74"><td id="e75" style="text-align:left;"></tr>
+		 	<tr><td id="e80"><td id="e81"><td id="e82"><td id="e83"><td id="e84"><td id="e85" style="text-align:left;"></tr>
+		 	<tr><td id="e90"><td id="e91"><td id="e92"><td id="e93"><td id="e94"><td id="e95" style="text-align:left;"></tr>
 		</table>
 	</td>
 </table>
-<var id="varRes"></var>
+<var id="varResult" style="font-size: 15px;"></var>
 </div>
 
-<div id="divSettings" class="layer3" style="visibility:hidden;font-size:15px;top:80px;" >
-
+<div id="divSettings" class="layer3" style="visibility:hidden;font-size:15px;top:80px;">
 <table style="margin: 0px auto;"><tr>
 	<td style="vertical-align:top;">
 		<div> &nbsp;<var id="setOp">Action</var>:<br>
@@ -123,7 +123,7 @@ Arithmisha
 </table>
 </div>
 
-<div id="divHelp" class="layer4" style="visibility:hidden;font-size:18px; top:80px; font-style:italic;" onclick="showTask();" >
+<div id="divHelp" class="layer4" style="visibility:hidden;font-size:18px; top:80px; font-style:italic;" onclick="clickBlackboard();" >
 	<div id="helpText" >
 		Help Misha to solve the examples!<br><br>
 		Click here for а new exercise.<br>
@@ -145,7 +145,7 @@ Arithmisha
 		</p>
 	</div>
 </div>
-<!--div id="inFieldTemplate" class="layer5" style="visibility:hide;"><span class="inField">gdfgdfg<span class="blink">_</span></span></div-->
+
 <script>localize();
 function localize() {
 	var script = document.createElement("script");

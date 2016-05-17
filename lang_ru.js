@@ -33,4 +33,4 @@ document.getElementById("helpText").innerHTML =
 eExcellent="Отлично, Миша!";
 eGood="Хорошо, Миша.";
 eSatisfy="Попробуй еще раз.";
-resFormat="Время (сек): %t Oшибок: %e";
+resFormat="%t секунд, ошибок: %e";

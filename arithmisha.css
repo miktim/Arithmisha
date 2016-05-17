@@ -4,20 +4,21 @@ body {
 td {text-align: left;}
 
 .normal {
-	font-size: 20px;
+	font-size: 18px;
 	text-align: center;
 	color: white;
 }
 .wrongAnswer {
-	font-size: 20px;
+	font-size: 18px;
 	text-align: center;
 	color: red;
 	text-decoration: line-through;
 }
 .rightAnswer {
-	font-size: 20px;
+	font-size: 18px;
 	text-align: center;
 	color: lightgreen;
+	text-decoration: none;
 }
 img {
 	border-width: 0;
@@ -67,7 +68,7 @@ button.keyButtonWide {
 .layer10{ z-index: 10;} 
 
 td.editable {
-	font-size: 20px;
+	font-size: 18px;
 	text-align: center;
 	color: yellow;
 }
@@ -97,10 +98,7 @@ td.edited {
    animation: borderBlink 1s step-end infinite;    
 	color: black;
 	text-align: center;
-	font-size: 18px;
+	font-size: 16px;
 	background-color: white;
-   border:1px solid black;
-/*	border-width: 1px;
-	border-style: solid;
-	border-color: black;*/
+   border:1px solid darkgray;
 }
