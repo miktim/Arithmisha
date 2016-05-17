@@ -233,6 +233,7 @@ Arithmisha
       	 this.tsIndex -= 1;
       	 if (this.tsIndex < 0) this.tsIndex = this.tasks.length -1;
        	 document.getElementById("varTaskNo").innerHTML = (this.tsIndex+1) + "/" + this.tasks.length;
+          document.getElementById("divKeyboard").style.visibility = "hidden";
       	 currentTask.set(this.tasks[this.tsIndex]);
       	 currentTask.show();
         } 
@@ -383,7 +384,6 @@ function clickTeacher() {
 }
 //
 function clickMisha() {
-   document.getElementById("divKeyboard").style.visibility = "hidden";
    document.getElementById("divTask").style.visibility = "visible";
    document.getElementById("divSettings").style.visibility = "hidden";
    document.getElementById("divHelp").style.visibility = "hidden";
