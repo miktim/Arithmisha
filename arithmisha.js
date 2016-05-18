@@ -522,7 +522,9 @@ function restoreData(name) {
 //
 function saveData(name, value) {
    deleteCookie(name);
-   setCookie(name,value,1209600); //keep cookie two weeks
+//keep cookie two weeks
+//   setCookie(name, value, {expires: new Date(new Date().getDate() + 14)});
+   setCookie(name, value, {expires: 1209600}); 
 };
 
 //*

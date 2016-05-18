@@ -1,6 +1,7 @@
 body {
 	background-color: white;
-	margin: 0;}
+	margin: 0;
+}
 td {text-align: left;}
 
 .normal {
@@ -100,5 +101,5 @@ td.edited {
 	text-align: center;
 	font-size: 16px;
 	background-color: white;
-   border:1px solid darkgray;
+   border:1px solid black;
 }
