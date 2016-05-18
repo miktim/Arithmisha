@@ -1,7 +1,9 @@
 body {
-	background-color: white;
-	margin: 0;
+    width: 100%;
+    margin: 0;
+    background-color: white;
 }
+
 td {text-align: left;}
 
 .normal {
