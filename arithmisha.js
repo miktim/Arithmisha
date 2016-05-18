@@ -9,13 +9,16 @@ Arithmisha
       , min2nd:1	// 2nd operand from
       , max2nd:9 	// 2nd operand to
       , save: function() {
-            saveData("Settings",this.bitmask + "$" + this.min2nd + "$" + this.max2nd);
+            saveData("Settings",this.get());
             currentTask.reset();
             daybook.reset(); 
          }
+      , get: function() {
+      	   return this.bitmask + "$" + this.min2nd + "$" + this.max2nd;
+        }
       , restore: function() {
             var settingsStr = restoreData("Settings");
-            if (settingsStr === undefined) settingsStr = (3+16+256).toString() + "$1$9";
+            if (settingsStr === undefined) settingsStr = this.get();
             var settingsArr = settingsStr.split("$");
             this.bitmask = Number(settingsArr[0]);
 // for each checkbox class assign 
@@ -76,11 +79,11 @@ Arithmisha
          if (this.element === undefined) return;
          var inValue = decodeHTML(this.element.innerHTML); //&GT; &LT;
          var inLen = inValue.length;
-         if (key == "B" && inLen > 0) {
+         if (key == "B" && inLen > 0) {  //Backspace
             this.element.innerHTML=inValue.substr(0, inLen-1);
             return;
          }
-         if (key == "E" && inLen > 0 && typeof this.onChange === "function") {
+         if (key == "E" && inLen > 0 && typeof this.onChange === "function") { //Enter
             this.onChange();
             return;
          }
@@ -159,28 +162,24 @@ Arithmisha
         }
       , showExample: function(i) {
       	 var exArr = this.examples[i].split(" ");
-      	 for (var j=0; j<5; j++){
+          var tdElAnswer = document.getElementById("e"+String(i)+"5");
+          tdElAnswer.innerHTML = "";
+  			 tdElAnswer.className = "rightAnswer";
+      	 for (var j=0; j<5; j++) {
          	var tdEl = document.getElementById("e"+String(i)+String(j));
-         	var tdElAnswer = document.getElementById("e"+String(i)+"5");
          	tdEl.innerHTML = exArr[j];
-            tdElAnswer.innerHTML = "";
          	if (exArr[j] == "?") {
                tdEl.className="editable";
          	} else {
          		if (j == exArr[6]) {
          			if (exArr[j] !== exArr[5]) {
           			   currentTask.errCount += 1;
-          			   tdEl.className = "wrongAnswer";
           			   tdElAnswer.innerHTML = exArr[5];
-          			   tdElAnswer.className = "rightAnswer";
+          			   tdEl.className = "wrongAnswer";
 //							tdEl.innerHTML = '<span class="wrongAnswer">' + exArr[j] 
 //							   + '</span><span class="rightAnswer"> '+ exArr[5] + '</span>';
-         			} else {
-         				tdEl.className = "rightAnswer";
-         			}
-         		} else {
-            	  tdEl.className="normal";
-            	}
+         			} else { tdEl.className = "rightAnswer"; }
+         		} else { tdEl.className="normal"; }
          	}
         	 }
         }
