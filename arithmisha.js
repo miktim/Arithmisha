@@ -162,6 +162,7 @@ var currentTask = {
 					resetData("Task");
 					daybook.addTask(currentTask.get());
 					currentTask.show();
+					playAnimation();
 				}
 			});
 		}
@@ -532,6 +533,10 @@ function generateTask() {
 	var examplesArr = new Array();
 	for (var i = 0; i < 10; i++) examplesArr.push(generateExample());
 	return examplesArr;
+}
+//
+function playAnimation() {
+
 }
 /*
  * Save / Restore data (settings, task, daybook)
