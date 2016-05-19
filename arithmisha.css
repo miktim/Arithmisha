@@ -54,7 +54,7 @@ button.keyButtonWide {
 	-ms-transform: rotate(3deg);
 	transform: rotate(3deg);
 }
-.layer1, .layer2, .layer3, .layer4, .layer5, .layer9, .layer10 {
+.layer1, .layer2, .layer3, .layer4, .layer5, .layer6, .layer9, .layer10 {
 	position: absolute;
 	width: 1024px; 
 	top: 0;
@@ -67,6 +67,7 @@ button.keyButtonWide {
 .layer3 { z-index: 3; }
 .layer4 { z-index: 4; }
 .layer5 { z-index: 5; }
+.layer6 { z-index: 6; }
 .layer9 { z-index: 9; }
 .layer10{ z-index: 10;} 
 
