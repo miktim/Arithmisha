@@ -343,7 +343,7 @@ function keyClickHandle(event) {
 	currentField.inKey(key);
 }
 // Physical keyboard handler (some browsers don't handle keypress event for backspace keyCode=8)
-function keyUpHandle(event) {
+function keyboardHandle(event) {
 	var keyCode = event.keyCode;
 	if (keyCode == 0) {
 		keyCode = event.which;
@@ -363,7 +363,7 @@ function keyUpHandle(event) {
 		} //comma = dot
 	}
 	if (key !== undefined) currentField.inKey(key);
-	return true; //
+	return false; //disable default
 }
 /*
  * Click map areas procedures

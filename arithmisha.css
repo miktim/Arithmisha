@@ -56,12 +56,15 @@ button.keyButtonWide {
 }
 .layer1, .layer2, .layer3, .layer4, .layer5, .layer6, .layer9, .layer10 {
 	position: absolute;
-	width: 1024px; 
+	width: 740px; 
 	top: 0;
 	font-family:sans-serif;
 	color: white;
 	text-align: center;
-} 
+
+   margin-left:-370px;
+   left:50%;
+ } 
 .layer1 { z-index: 1; } 
 .layer2 { z-index: 2; }
 .layer3 { z-index: 3; }
@@ -101,8 +104,8 @@ td.edited {
    -webkit-animation: borderBlink 1s step-end infinite;    
    animation: borderBlink 1s step-end infinite;    
 	color: black;
-	text-align: center;
 	font-size: 16px;
+	text-align: center;
 	background-color: white;
    border:1px solid black;
 }
