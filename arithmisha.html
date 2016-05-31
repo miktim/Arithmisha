@@ -19,17 +19,17 @@ Arithmisha
 	<meta name="keywords" lang="en" content="Arithmisha arithmetic example exercise">
 	<meta name="robots" content="index, follow">
 	<meta name="viewport" content="width=device-width">
-	<!--script src="https://learn.javascript.ru/article/cookie/cookie.js" type="text/javascript"></script-->
-	<script src="arithmisha.js" type="text/javascript"></script>
-	<link rel="stylesheet" type="text/css" href="arithmisha.css">
+	<script src="./js/cookie.js" type="text/javascript"></script>
+	<script src="./js/arithmisha.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="arithmisha.css" type="text/css">
 </head>
 
 <body onload="postLoadInit();" onkeypress="keyboardHandle(event);" ondblclick="return false;">
 
 <div class="layer1">
 <div style="text-align:center;">
-	<img src="all.png" width="518" height="334" usemap="#scene" alt="Arithmisha Арифмиша">
-	<map name="scene">
+	<img src="./img/all.png" width="518" height="334" usemap="#mapScene" alt="Arithmisha Арифмиша">
+	<map name="mapScene">
 		<area id="areaMap" shape="rect" coords="164,22,364,54" href="" alt="Map" title="About...">
 		<!--area id="areaMisha" shape="rect" coords="438,144,515,322" href="" alt="Misha" title="Misha. View history?" -->
 		<!--area id="areaTeacher" shape="rect" coords="1,178,78,330" href="" alt="Teacher" title="Teacher. New settings?"-->
@@ -130,7 +130,7 @@ Arithmisha
 </div>
 
 <div id="divAbout" style="visibility:hidden;">
-	<img class="layer9" style="margin-left:-90px; width:194px; top:25px;" src="about.png" width="194" height="226" alt="About" onclick="document.getElementById('divAbout').style.visibility = 'hidden';">
+	<img class="layer9" style="margin-left:-90px; width:194px; top:25px;" src="./img/about.png" width="194" height="226" alt="About" onclick="document.getElementById('divAbout').style.visibility = 'hidden';">
 	<div class="layer10 rotate3deg" style="top:60px;color:black;padding-left:5px" onclick="document.getElementById('divAbout').style.visibility = 'hidden';">
 		<p style="font-weight:bold;"><var id="aboutApp">Arithmisha</var></p>
 		<p style="font-size:8pt; line-height:1;">
@@ -142,18 +142,20 @@ Arithmisha
 	</div>
 </div>
 
-<img id="areaMisha" class="layer5" style="top:141px; width:81px; margin-left:178px;" src="misha.gif" width="81" height="185" alt="Misha" title="Misha. View history?">
-
-<img id="areaTeacher" class="layer6" style="top:175px; width:87px; margin-left:-259px;" src="teacher.gif" width="87" height="160" alt="Teacher" title="Teacher. New settings?">
-
-<script>localize();
-function localize() {
+<img class="layer5" style="top:141px; width:81px; margin-left:178px;" src="./img/misha.gif" width="81" height="185" usemap="#mapMisha" alt="Misha">
+<map name="mapMisha">
+	<area  id="areaMisha" shape="rect" coords="0,0,81,185" href="" alt="Map Misha" title="Misha. View history?">
+</map>
+<img class="layer6" style="top:175px; width:87px; margin-left:-259px;" src="./img/teacher.gif" width="87" height="160" usemap="#mapTeacher" alt="Teacher">
+<map name="mapTeacher">
+	<area id="areaTeacher" shape="rect" coords="0,0,87,160" href="" alt="Map Teacher"  title="Teacher. New settings?">
+</map>
+<script>
 	var script = document.createElement("script");
 	script.type = "text/javascript";
-	script.src = "lang_"+
+	script.src = "./js/lang_"+
 		(window.navigator.userLanguage || window.navigator.language).split("-")[0] + ".js";
 	document.body.appendChild(script);
-}
 </script>
 </body>
 </html>

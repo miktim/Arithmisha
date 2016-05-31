@@ -30,7 +30,4 @@ document.getElementById("helpText").innerHTML =
 //document.getElementById("keyMul").innerHTML = "x";
 //document.getElementById("keyDiv").innerHTML = ":";
 //
-eExcellent="Отлично, Миша!";
-eGood="Хорошо, Миша.";
-eSatisfy="Попробуй еще раз.";
-resFormat="%t секунд, ошибок: %e";
+resFormat="%t секунд, %e ошибок.";
