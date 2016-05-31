@@ -150,7 +150,7 @@ var currentTask = {
 				var i = currentTask.exIndex;
 				var answer = decodeHTML(this.element.innerHTML);
 				if (!isNaN(parseFloat(answer)) && isFinite(answer)) {
-					answer = roundToTenths(Number(answer));
+					answer = roundToTenths(Number(answer)).toString();
 				}
 				currentTask.examples[i] =
 					currentTask.examples[i].replace("?", answer);
