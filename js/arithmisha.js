@@ -86,8 +86,10 @@ var currentField = {
 			this.element.innerHTML = inValue.substr(0, inLen - 1);
 			return;
 		}
-		if (key == "E" && inLen > 0 && typeof this.onChange === "function") { //Enter
-			this.onChange();
+		if (key == "E") {  //Enter
+			if (inLen > 0 && typeof this.onChange === "function") {
+				this.onChange();
+			}
 			return;
 		}
 		if (inLen >= this.maxLen) return;
@@ -148,16 +150,16 @@ var currentTask = {
 			el.innerHTML = "";
 			currentField.set(el, exAr[5].length, charset, function() {
 				var i = currentTask.exIndex;
-				var answer = decodeHTML(this.element.innerHTML);
+				var answer = decodeHTML(currentField.element.innerHTML);
 				if (!isNaN(parseFloat(answer)) && isFinite(answer)) {
 					answer = roundToTenths(Number(answer)).toString();
 				}
 				currentTask.examples[i] =
 					currentTask.examples[i].replace("?", answer);
-				this.reset();
+				currentField.reset();
 				currentTask.showExample(i);
 				currentTask.getAnswer(i + 1);
-				if (i == currentTask.examples.length - 1) {
+				if (i == (currentTask.examples.length - 1)) {
 					currentTask.timeSec = Math.round(((new Date()).getTime() - currentTask.started) / 1000);
 					resetData("Task");
 					daybook.addTask(currentTask.get());
@@ -359,8 +361,18 @@ function keyboardHandle(event) {
 		} //comma = dot
 	}
 	if (key !== undefined) currentField.inKey(key);
-	return true; //disable default
+	event.preventDefault();
+	return false; //disable default
 }
+//
+function catchBackspace(e) {
+	if (e.keyCode === 8) { 
+		currentField.inKey("B");
+		e.preventDefault();
+		return false;
+	}
+	return true;
+} 
 /*
  * Click map areas procedures
  */
@@ -553,4 +565,50 @@ function saveData(name, value) {
 		expires: 1209600
 	});
 };
+// (c) Ilya Kantor, cookie.js, https://learn.javascript.ru/cookie
+// возвращает cookie с именем name, если есть, если нет, то undefined
+function getCookie(name) {
+	var matches = document.cookie.match(new RegExp(
+		"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+	));
+	return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+// устанавливает cookie с именем name и значением value
+// options - объект с свойствами cookie (expires, path, domain, secure)
+function setCookie(name, value, options) {
+	options = options || {};
+
+	var expires = options.expires;
+
+	if (typeof expires == "number" && expires) {
+		var d = new Date();
+		d.setTime(d.getTime() + expires * 1000);
+		expires = options.expires = d;
+	}
+	if (expires && expires.toUTCString) {
+		options.expires = expires.toUTCString();
+	}
+
+	value = encodeURIComponent(value);
+
+	var updatedCookie = name + "=" + value;
+
+	for (var propName in options) {
+		updatedCookie += "; " + propName;
+		var propValue = options[propName];
+		if (propValue !== true) {
+			updatedCookie += "=" + propValue;
+		}
+	}
+
+	document.cookie = updatedCookie;
+}
+
+// удаляет cookie с именем name
+function deleteCookie(name) {
+	setCookie(name, "", {
+		expires: -1
+	})
+}
+
 
