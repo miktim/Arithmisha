@@ -171,22 +171,22 @@ var currentTask = {
 	},
 	showExample: function(i) {
 		var exArr = this.examples[i].split(" ");
-		var tdElAnswer = document.getElementById("e" + String(i) + "5");
-		tdElAnswer.innerHTML = "";
-		tdElAnswer.className = "rightAnswer";
+		var tdElRightAnswer = document.getElementById("e" + String(i) + "5");
+		tdElRightAnswer.innerHTML = "";
+		tdElRightAnswer.className = "rightAnswer";
 		for (var j = 0; j < 5; j++) {
 			var tdEl = document.getElementById("e" + String(i) + String(j));
 			tdEl.innerHTML = exArr[j];
 			if (exArr[j] == "?") {
 				tdEl.className = "editable";
 			} else {
-				if (j == exArr[6]) {
-					if (exArr[j] !== exArr[5]) {
+				if (j == Number(exArr[6])) {
+					if (exArr[j] != exArr[5]) { //compare symbolic user answer & right answer
 						currentTask.errCount += 1;
-						tdElAnswer.innerHTML = exArr[5];
+						tdElRightAnswer.innerHTML = exArr[5];
 						tdEl.className = "wrongAnswer";
-						//							tdEl.innerHTML = '<span class="wrongAnswer">' + exArr[j]
-						//							   + '</span><span class="rightAnswer"> '+ exArr[5] + '</span>';
+			//							tdEl.innerHTML = '<span class="wrongAnswer">' + exArr[j]
+			//							   + '</span><span class="rightAnswer"> '+ exArr[5] + '</span>';
 					} else {
 						tdEl.className = "rightAnswer";
 					}
@@ -195,6 +195,7 @@ var currentTask = {
 				}
 			}
 		}
+		return;
 	},
 	reset: function() {
 		this.examples = new Array();
