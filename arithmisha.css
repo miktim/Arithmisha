@@ -4,7 +4,7 @@ body {
     background-color: white;
 }
 
-td {text-align: left;}
+td {text-align: center;}
 
 .normal {
 	font-size: 18px;
@@ -24,7 +24,7 @@ td {text-align: left;}
 	text-decoration: none;
 }
 img {
-	border-width: 0;
+	border-width:0;
 }
 area {
 	border-width:0;
@@ -74,7 +74,7 @@ button.keyButtonWide {
 .layer9 { z-index: 9; }
 .layer10{ z-index: 10;} 
 
-td.editable {
+.editable {
 	font-size: 18px;
 	text-align: center;
 	color: yellow;
@@ -100,7 +100,7 @@ td.editable {
     border:1px solid darkgray;
     /* add 'border-color: transparent' if you wish no border to show initially */  
 }
-td.edited {
+.edited {
    -webkit-animation: borderBlink 1s step-end infinite;    
    animation: borderBlink 1s step-end infinite;    
 	color: black;

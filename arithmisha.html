@@ -87,41 +87,33 @@ Arithmisha
 	<var id="varTaskNo" style="font-size:15px; padding:0px;"></var>
 </div>
 
-<div id="divSettings" class="layer3" style="visibility:hidden;font-size:15px;top:80px;">
-<table style="margin: 0px auto;"><tr>
-	<td style="vertical-align:top;">
-		<div> &nbsp;<var id="setOp">Action</var>:<br>
-			<input class="setOp" type="checkbox" value="1"> <var id="setOpAdd">addition</var><br>
-			<input class="setOp" type="checkbox" value="2"> <var id="setOpSub">subtraction</var><br>
-			<input class="setOp" type="checkbox" value="4"> <var id="setOpMul">multiplication</var><br>
-			<input class="setOp" type="checkbox" value="8"> <var id="setOpDiv">division</var><br>
-		</div>
-	</td>
-	<td style="vertical-align:top;">
-		<div> &nbsp;<var id="setOrder">Magnitude</var>:<br>
-			<input class="setOrder" type="checkbox" value="16"> <var id="setOrderOnes">ones</var><br>
-			<input class="setOrder" type="checkbox" value="32"> <var id="setOrderTens">tens</var><br>
-			<input class="setOrder" type="checkbox" value="64"> <var id="setOrderTenths">tenths</var><br>
-		</div>
-	</td>
-	<td style="vertical-align:top;">
-		<div> &nbsp;<var id="setFind">To find</var>:<br>
-			<input class="setFind" type="checkbox" value="256"> <var id="setFindRes">result</var><br>
-			<input class="setFind" type="checkbox" value="640"> <var id="setFindOpd">operand</var><br>
-			<input class="setFind" type="checkbox" value="1024"> <var id="setFindOp">action</var><br>
-			<input class="setFind" type="checkbox" value="2048"> <var id="setFindRel">relationship</var><br>
-		</div>
-	</td>
-</table>
-<table style="margin: 0px auto; vertical-align: top;"><tr>
-	<td><var id="setOpd2nd">2nd operand</var>: 
-	<td id="minOpd2nd" class="edited">1</td><td> - </td><td id="maxOpd2nd" class="editable">9</td>
-</table>
+<div id="divSettings" class="layer3" style="visibility:hidden;top:80px;font-size:15px;">
+	<div style="display:inline-block;text-align: left;"> &nbsp;<var id="setOp">Action</var>:<br>
+		<input class="setOp" type="checkbox" value="1"> <var id="setOpAdd">addition</var><br>
+		<input class="setOp" type="checkbox" value="2"> <var id="setOpSub">subtraction</var><br>
+		<input class="setOp" type="checkbox" value="4"> <var id="setOpMul">multiplication</var><br>
+		<input class="setOp" type="checkbox" value="8"> <var id="setOpDiv">division</var><br>
+	</div>
+	<div style="display:inline-block; text-align:left; vertical-align:top;"> &nbsp;<var id="setOrder">Magnitude</var>:<br>
+		<input class="setOrder" type="checkbox" value="16"> <var id="setOrderOnes">ones</var><br>
+		<input class="setOrder" type="checkbox" value="32"> <var id="setOrderTens">tens</var><br>
+		<input class="setOrder" type="checkbox" value="64"> <var id="setOrderTenths">tenths</var><br>
+	</div>
+	<div style="display:inline-block; text-align:left;"> &nbsp;<var id="setFind">To find</var>:<br>
+		<input class="setFind" type="checkbox" value="256"> <var id="setFindRes">result</var><br>
+		<input class="setFind" type="checkbox" value="640"> <var id="setFindOpd">operand</var><br>
+		<input class="setFind" type="checkbox" value="1024"> <var id="setFindOp">action</var><br>
+		<input class="setFind" type="checkbox" value="2048"> <var id="setFindRel">relationship</var><br>
+	</div>
+	<div >
+		<var id="setOpd2nd">2nd operand</var>:
+		<var id="minOpd2nd" class="edited">1</var> - <var id="maxOpd2nd" class="editable">9</var>
+	</div>
 </div>
 
 <div id="divHelp" class="layer4" style="visibility:hidden;font-size:18px; top:80px; font-style:italic;" onclick="clickBlackboard();" >
 	<div id="helpText" >
-		Help to Misha solve examples!<br><br>
+		Help Misha to solve examples!<br><br>
 		Click here for а new exercise.<br>
 		Click the Teacher to adjust the difficulty.<br>
 		Click Misha to view history.<br>
@@ -144,7 +136,7 @@ Arithmisha
 
 <img class="layer5" style="top:141px; width:81px; margin-left:178px;" src="./img/misha.gif" width="81" height="185" usemap="#mapMisha" alt="Misha">
 <map name="mapMisha">
-	<area  id="areaMisha" shape="rect" coords="0,0,81,185" href="" alt="Map Misha" title="Misha. View history?">
+	<area  id="areaMisha" shape="rect" coords="0,0,81,185" href="" alt="Map Misha" title="I'm Misha. View history?">
 </map>
 <img class="layer6" style="top:175px; width:87px; margin-left:-259px;" src="./img/teacher.gif" width="87" height="160" usemap="#mapTeacher" alt="Teacher">
 <map name="mapTeacher">
