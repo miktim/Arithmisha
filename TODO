@@ -1,0 +1,4 @@
+-  save the configuration at the same time with the task;
+-  optimize .gif;
+-  replace blinking border CSS with timer event (1/2 sec);
+-  game component
