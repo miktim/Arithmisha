@@ -1,6 +1,7 @@
 /*
 Arithmisha
 (c) miktim@mail.ru
+   Last update: 2016.11.14
    2016 released as WEB App
    2002 idea, characters, Windows App
 */
@@ -9,9 +10,12 @@ var settings = {
 	min2nd: 1, // 2nd operand from
 	max2nd: 9, // 2nd operand to
 	save: function() {
-		saveData("Settings", this.get());
+		saveCookie();
 		currentTask.reset();
 		daybook.reset();
+	},
+	saveCookie: function() {
+		saveData("Settings", this.get());
 	},
 	get: function() {
 		return this.bitmask + "$" + this.min2nd + "$" + this.max2nd;
@@ -209,6 +213,7 @@ var currentTask = {
 		}
 		this.reset();
 		this.examples = generateTask();
+		settings.saveCookie();
 		saveData("Task", this.get());
 	}
 };
@@ -225,6 +230,7 @@ var daybook = {
 		for (var i = 1; i < this.tasks.length; i++) {
 			str += ";" + this.tasks[i];
 		}
+		settings.saveCookie();
 		saveData("Daybook", str);
 		this.tsIndex = this.tasks.length - 1;
 	},
@@ -252,7 +258,7 @@ var daybook = {
 };
 // estimate results
 //
-var resFormat = "%t sec, %e errors";
+var resFormat = "%t sec, %e error(s)";
 //
 function postLoadInit() {
 	document.getElementById("aboutApp").innerHTML = document.title;
@@ -341,7 +347,7 @@ function keyClickHandle(event) {
 	currentField.inKey(key);
 }
 // Physical keyboard handler (some browsers don't handle keypress event for backspace keyCode=8)
-function keyboardHandle(event) {
+function keyPressHandle(event) {
 	var keyCode = event.keyCode;
 	if (keyCode == 0) {
 		keyCode = event.which;
@@ -365,7 +371,7 @@ function keyboardHandle(event) {
 	return false; //disable default
 }
 //
-function catchControls(e) {
+function keyDownHandle(e) {
 	if (e.keyCode === 8) { 
 		currentField.inKey("B");
 		e.preventDefault();
@@ -376,7 +382,6 @@ function catchControls(e) {
 		e.preventDefault();
 		return false;
 	}
-
 	return true;
 } 
 /*
@@ -545,7 +550,12 @@ function generateTask() {
 		, [1, 10, 0.1] //selected order of magnitude
 		, [0, 4, 2, 1, 3]); //selected what find to index: 0,2 - operand; 1-operation; 3-relation; 4-result
 	var examplesArr = new Array();
-	for (var i = 0; i < 10; i++) examplesArr.push(generateExample());
+	for (var i = 0; i < 10; i++) {
+		examplesArr.push(generateExample());
+		for (var j = 0; i > 0 && examplesArr[i-1] == examplesArr[i] && j < 2; j++) {
+			examplesArr[i] = generateExample();
+		}
+	}
 	return examplesArr;
 }
 //
