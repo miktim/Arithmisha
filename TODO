@@ -1,6 +1,6 @@
 +  save the config at the same time with the task;
 +  exclude neighboring identical examples;
 -  game component;
--+ optimize .gif;
++ optimize .gif;
 -  ? replace blinking border CSS with timer event (1/2 sec).
 
