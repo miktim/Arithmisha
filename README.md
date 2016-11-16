@@ -1,4 +1,3 @@
 # arithmisha
 Dedicated to granddaughters and to grandsons.
-Not just a web game ... :
-https://miktim.github.io/arithmisha
+Not just a web game ... :![Click me to play](/img/misha.gif)
