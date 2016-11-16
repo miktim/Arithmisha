@@ -1,7 +1,7 @@
 /*
 Arithmisha
 (c) miktim@mail.ru
-   Last update: 2016.11.14
+   Last update: 2016.11.16
    2016 released as WEB App
    2002 idea, characters, Windows App
 */
@@ -10,7 +10,7 @@ var settings = {
 	min2nd: 1, // 2nd operand from
 	max2nd: 9, // 2nd operand to
 	save: function() {
-		saveCookie();
+		this.saveCookie();
 		currentTask.reset();
 		daybook.reset();
 	},
