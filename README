@@ -1,6 +1,11 @@
 # arithmisha rev 161116
 
-Dedicated to granddaughters and to grandsons.
-Not just a web game ... 
+Dedicated to granddaughters and to grandsons. Not just a web game ...
+
+Notes:
+- history (last solved four tasks) are stored for two weeks;
+- changing settings deletes history;
+- for change the interval of the 2nd operand: <bs> enter low <enter> <bs> enter hight <enter>
+
 Click to play:
   https://miktim.github.io/arithmisha
